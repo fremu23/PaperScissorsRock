@@ -10,14 +10,13 @@ function getComputerChoice(){
     } else {
         choice = "scissors";
     }
-
     return choice;
 }
+
 
 // Get the user input choice
 function getUserChoice(){
     let user_choice = prompt("Rock, Paper or Scissors?");
-
     return user_choice;
 }
 
@@ -28,7 +27,6 @@ function playGame(){
     let computerScore = 0;
     let rounds = 0;
 
-    
 
     // Function for a singular round of the game
     function playRound(userChoice, computerChoice){
@@ -54,6 +52,7 @@ function playGame(){
             userScore++;
         }
     }
+    
     
     // Play 5 rounds of the game
     while (rounds < 5){
@@ -85,14 +84,3 @@ function playGame(){
 }
 
 playGame()
-
-// Get the computer choice via random selection
-// Get the user input choice
-
-// IF computer beats user choice
-    // Lose
-// ELSE IF user beats computer chocie
-    // Win
-// ELSE 
-    // Tie
-    // Replay
