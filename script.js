@@ -28,9 +28,7 @@ function playGame(){
     let computerScore = 0;
     let rounds = 0;
 
-    // Put the selected choices into a variable
-    let userSelect = getUserChoice();
-    let computerSelect = getComputerChoice();
+    
 
     // Function for a singular round of the game
     function playRound(userChoice, computerChoice){
@@ -49,10 +47,8 @@ function playGame(){
         } else if (userPlay == "paper" && computerPlay == "scissors"){
             console.log("Computer Wins");
             computerScore++;
-        
         } else if (userPlay != "paper" & userPlay != "scissors" & userPlay != "rock"){
-            console.log("Invalid Response")
-            return;
+            console.log("Invalid Response ")
         } else {
             console.log("User Wins");
             userScore++;
@@ -61,11 +57,11 @@ function playGame(){
     
     // Play 5 rounds of the game
     while (rounds < 5){
+        let userSelect = getUserChoice();
+        let computerSelect = getComputerChoice();
         playRound(userSelect, computerSelect);
         console.log(`Computer: ${computerScore} || User: ${userScore}`);
         rounds++;
-        userSelect = getUserChoice();
-        computerSelect = getComputerChoice();
     }
 }
 
