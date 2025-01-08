@@ -63,6 +63,25 @@ function playGame(){
         console.log(`Computer: ${computerScore} || User: ${userScore}`);
         rounds++;
     }
+
+    // Announce Winner
+    if (computerScore > userScore){
+        console.log(`Computer Wins the Game ${computerScore} - ${userScore}`);
+    } else {
+        console.log(`User Wins the Game ${userScore} - ${computerScore}`);
+        
+    }
+
+    console.log("-----------------------")
+
+    // Ask if player wants to play again?
+    playAgain = prompt("Would you like to play again? (y/n)");
+
+    if (playAgain.toLowerCase() == "y"){
+        playGame()
+    } else {
+        return;
+    }
 }
 
 playGame()
