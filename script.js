@@ -20,67 +20,79 @@ function getUserChoice(){
     return user_choice;
 }
 
-
-// Play 5 rounds of the game
-function playGame(){
-    let userScore = 0;
-    let computerScore = 0;
-    let rounds = 0;
+let userScore = 0;
+let computerScore = 0;
+let rounds = 0;
 
 
-    // Function for a singular round of the game
-    function playRound(userChoice, computerChoice){
-        let userPlay = userChoice.toLowerCase();
-        let computerPlay = computerChoice.toLowerCase();
-    
-        console.log(`Computer chose ${computerPlay} || User chose ${userPlay}`);
-        if (userPlay == computerPlay){
-            console.log("TIE!");  
-        } else if (userPlay == "rock" && computerPlay == "paper"){
-            console.log("Computer Wins");
-            computerScore++;
-        } else if (userPlay == "scissors" && computerPlay == "rock"){
-            console.log("Computer Wins");
-            computerScore++;
-        } else if (userPlay == "paper" && computerPlay == "scissors"){
-            console.log("Computer Wins");
-            computerScore++;
-        } else if (userPlay != "paper" & userPlay != "scissors" & userPlay != "rock"){
-            console.log("Invalid Response ")
-        } else {
-            console.log("User Wins");
-            userScore++;
-        }
-    }
-    
-    
-    // Play 5 rounds of the game
-    while (rounds < 5){
-        let userSelect = getUserChoice();
-        let computerSelect = getComputerChoice();
-        playRound(userSelect, computerSelect);
-        console.log(`Computer: ${computerScore} || User: ${userScore}`);
-        rounds++;
-    }
 
-    // Announce Winner
-    if (computerScore > userScore){
-        console.log(`Computer Wins the Game ${computerScore} - ${userScore}`);
+// Function for a singular round of the game
+function playRound(userPlay, computerPlay){
+    const resultDiv = document.getElementById("result");
+    let resultText = "";
+
+    if (userPlay == computerPlay){
+        resultText = "TIE!";
+    } else if (
+        (userPlay == "rock" && computerPlay == "paper")||
+        (userPlay == "scissors" && computerPlay == "rock")||
+        (userPlay == "paper" && computerPlay == "scissors")
+    ) {
+        resultText = "Computer Wins";
+        computerScore++;
     } else {
-        console.log(`User Wins the Game ${userScore} - ${computerScore}`);
+        resultText = "User Wins";
+        userScore++;
+    }
+
+    // Display result
+    resultDiv.innerHTML = `
+        <p>Computer chose <strong>${computerPlay}</strong> || User chose <strong>${userPlay}</strong><p>
+        <p>${resultText}</p>
+        <p>Computer: ${computerScore} || User: ${userScore}</p>
+        
+    `;
+
+    rounds++;
+
+    if (rounds == 5){
+        announceWinner();
+        resetGame()
+    }
+}
+    
+
+function announceWinner() {
+    // Announce Winner
+    const resultDiv = document.getElementById("result");
+    if (computerScore > userScore){
+        resultDiv.innerHTML += `<p>Computer Wins the Game ${computerScore} - ${userScore}</p>`;
+    
+    } else if (computerScore == userScore){
+        resultDiv.innerHTML += `<p>The game ends in a tie! ${computerScore} - ${userScore}</p>`;
+    } else {
+        resultDiv.innerHTML += `<p>User Wins the Game ${userScore} - ${computerScore}</p>`;
         
     }
 
-    console.log("-----------------------")
-
-    // Ask if player wants to play again?
-    playAgain = prompt("Would you like to play again? (y/n)");
-
-    if (playAgain.toLowerCase() == "y"){
-        playGame()
-    } else {
-        return;
-    }
 }
 
-playGame()
+function resetGame(){
+    userScore = 0;
+    computerScore = 0;
+    rounds = 0;
+}
+
+
+// Add event listeners to the buttons
+document.getElementById("rockbtn").addEventListener("click", () => {
+    playRound("rock", getComputerChoice());
+});
+
+document.getElementById("paperbtn").addEventListener("click", () => {
+    playRound("paper", getComputerChoice());
+});
+
+document.getElementById("scissorsbtn").addEventListener("click", () => {
+    playRound("scissors", getComputerChoice());
+});
